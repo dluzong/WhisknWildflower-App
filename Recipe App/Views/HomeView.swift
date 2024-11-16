@@ -13,38 +13,48 @@ struct HomeView: View {
             ZStack {
                 Color("BackgroundColor")
                     .ignoresSafeArea()
+
                 VStack {
-                    
+                    Spacer()
+
                     Text("Whisk&Wildflower")
                         .font(Font.custom("Shizuru-Regular", size: 50))
                     Image("Whisk")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .padding(.bottom, 30.0)
+                        .padding(0.0)
                         .frame(width: 300 , height: 280)
 
                     HStack {
                         Spacer()
-                        NavigationLink(destination: SearchRecipeView()) {
+                        NavigationLink(destination: TabBarView()) {
                             Text("Find Recipes")
+        
                                 .padding()
-                                .background(Color("Brown"))
+                                .background(Color("ChocoBrown"))
                                 .foregroundColor( Color("BackgroundColor"))
                                 .cornerRadius(45)
+                                .font(Font.custom("DeliusSwashCaps-Regular", size: 30))
                         }
-                        Spacer()
-                        NavigationLink(destination: CookbookView()) {
-                            Text("My Cookbook")
-                                .padding()
-                                .background(Color("Brown"))
-                                .foregroundColor( Color("BackgroundColor"))
-                                .cornerRadius(45)
-                        }
+                        .padding(.top, 40.0)
+//                        Spacer()
+//                        NavigationLink(destination: CookbookView()) {
+//                            Text("My Cookbook")
+//                                .padding()
+//                                .background(Color("Brown"))
+//                                .foregroundColor( Color("BackgroundColor"))
+//                                .cornerRadius(45)
+//                                .font(Font.custom("DeliusSwashCaps-Regular", size: 18))
+//                        }
+
                         Spacer()
                     }
                     .padding(.top, 20.0)
+
+                    Spacer()
                 }
             }
+            .navigationBarHidden(true)
         }
     }
 }

@@ -29,22 +29,9 @@
 		E953AA282CE0A47B0049DE2D /* Recipe AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Recipe AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		E9E935692CE1CF95006F2EAE /* Exceptions for "Recipe App" folder in "Recipe App" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Recipe-App-Info.plist",
-			);
-			target = E953AA0D2CE0A4760049DE2D /* Recipe App */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E953AA102CE0A4760049DE2D /* Recipe App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				E9E935692CE1CF95006F2EAE /* Exceptions for "Recipe App" folder in "Recipe App" target */,
-			);
 			path = "Recipe App";
 			sourceTree = "<group>";
 		};

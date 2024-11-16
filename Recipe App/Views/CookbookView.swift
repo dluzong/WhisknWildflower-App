@@ -21,36 +21,66 @@ struct CookbookView: View {
                             .frame(width: 100 , height: 100)
                     }
                     Text("My Cookbook")
+                        .font(Font.custom("DeliusSwashCaps-Regular", size: 30))
+                        .foregroundColor(Color("Text"))
                     Spacer()
-
+                    Image(systemName: "person.crop.circle")
+                        .padding(.trailing, 20.0)
+                        .foregroundColor(Color("Text"))
+                        .imageScale(.large)
                 }
-                .background(Rectangle().foregroundColor(Color("Brown")))
+//                .background(Rectangle().foregroundColor(Color("ChocoBrown")))
 
 
                 Text("Favorites...")
-                    .padding()
+                    .padding(.top, -20.0)
+                    .padding(.leading, 20.0)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(Font.custom("DeliusSwashCaps-Regular", size: 20))
+                    .foregroundColor(Color("Text"))
                 Divider()
 
-                Spacer()
+                ScrollView {
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
+                        ForEach(Array(1...8), id: \.self) { item in
+                            Rectangle()
+                                .fill(Color("Card")) // Replace with actual color
+                                .frame(height: 150)
+                                .cornerRadius(10)
+                                .overlay(
+                                    ZStack {
+                                        Text("Favorite Recipe \(item)")
+                                            .foregroundColor(Color("Text"))
+                                            .font(Font.custom("DeliusSwashCaps-Regular", size: 16))
 
-                VStack {
-                    Text("Add Favorites")
+                                        Image(systemName: "heart.fill")
+                                            .foregroundColor(Color("HeartColor"))
+                                            .padding(10)
+                                            .cornerRadius(10)
+                                            .padding([.bottom, .trailing], 8)
+                                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+
+
+                                    }
+
+                                )
+                        }
+                    }
+                    .padding()
                 }
 
-                Spacer()
+//                NavigationLink(destination: SearchRecipeView()) {
+//                    Text("Find more Recipes")
+//                        .padding()
+//                        .background(Color("ChocoBrown"))
+//                        .foregroundColor( Color("BackgroundColor"))
+//                        .cornerRadius(45)
+//                        .font(Font.custom("DeliusSwashCaps-Regular", size: 18))
+//                }
 
-                NavigationLink(destination: SearchRecipeView()) {
-                    Text("Find more Recipes")
-                        .padding()
-                        .background(Color("Brown"))
-                        .foregroundColor( Color("BackgroundColor"))
-                        .cornerRadius(45)
-                }
-
-                Spacer()
             }
         }
+        .navigationBarHidden(true)
     }
 }
 
