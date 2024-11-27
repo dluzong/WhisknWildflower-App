@@ -20,11 +20,13 @@ struct TabBarView: View {
 //                    }
 //                    .tag(0)
                 SearchRecipeView()
+                    .environmentObject(RecipeService())
                     .tabItem {
                         Label("Find Recipes", systemImage: "text.page.badge.magnifyingglass")
                     }
                     .tag(1)
                 CookbookView()
+                    .environmentObject(RecipeService())
                     .tabItem {
                         Label("My Cookbook", systemImage: "book")
                     }
