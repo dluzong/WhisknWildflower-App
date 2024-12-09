@@ -31,6 +31,7 @@ struct RecipeCardView: View {
                                 .frame(height: 100)
                                 .foregroundColor(Color("ChocoBrown"))
                         }
+                        
                         HStack {
                             Text(recipe.title)
                                 .foregroundColor(Color("Text"))
@@ -39,7 +40,9 @@ struct RecipeCardView: View {
                                 .lineLimit(2)
                                 .minimumScaleFactor(0.7)
                                 .padding(.horizontal, 8)
+
                             Spacer()
+
                             Button(action: {
                                 if recipeService.isFavorite(recipe: recipe) {
                                     recipeService.removeFromFavorites(recipe: recipe)
@@ -49,6 +52,7 @@ struct RecipeCardView: View {
                                 }
                             }) {
                                 Image(systemName: recipeService.isFavorite(recipe: recipe) ? "heart.fill" : "heart")
+                                    .scaleEffect(recipeService.isFavorite(recipe: recipe) ? 1.20 : 1.0)
                                     .foregroundColor(Color("HeartColor"))
                                     .padding(.trailing, 10.0)
                             }

@@ -11,6 +11,7 @@ import SwiftUI
 class RecipeService: ObservableObject {
     @Published var recipes: [RecipeObject] = [] // Current recipes
     @AppStorage("favoriteRecipe") private var favoriteRecipes: String = "[]" // Store favorite recipes
+
     var favorites : [RecipeObject] {
         get {
             guard let data = favoriteRecipes.data(using: .utf8),
@@ -29,12 +30,14 @@ class RecipeService: ObservableObject {
         }
 
     }
+
     private var randomRecipes: [RecipeObject] = [] // Cached random recipes
     private var hasFetchedRandomRecipes = false
 
     private let baseURLString = "https://api.spoonacular.com/recipes"
     private let apiKey = "7bc2d50e92284c389afe0ff986bf276d"
 
+    
     //FETCH RANDOM RECIPES ON FIRST LOAD
     func fetchRandomRecipes(number: Int = 10) {
         guard !hasFetchedRandomRecipes else{
@@ -96,6 +99,7 @@ class RecipeService: ObservableObject {
         }.resume()
     }
 
+
     //FETCH INGREDIENTS AND INSTRUCTIONS
     func fetchRecipeDetails(recipeID: Int, completion: @escaping (RecipeObject?) -> Void) {
         guard let url = URL(string: "\(baseURLString)/\(recipeID)/information?apiKey=\(apiKey)") else {
@@ -122,6 +126,7 @@ class RecipeService: ObservableObject {
         }.resume()
     }
 
+
     // SAVE RECIPES --PERSIST DATA
     func addToFavorites(recipe: RecipeObject) {
         if !favorites.contains(where: { $0.id == recipe.id }) {
@@ -137,26 +142,5 @@ class RecipeService: ObservableObject {
 
     func isFavorite(recipe: RecipeObject) -> Bool {
         favorites.contains(where: {$0.id == recipe.id})
-    }
-}
-
-// RawRepresentable Extension added to handle encoding and decoding of Array for AppStorage
-extension Array: @retroactive RawRepresentable where Element: Codable {
-    public init?(rawValue: String) {
-        guard let data = rawValue.data(using: .utf8),
-              let result = try? JSONDecoder().decode([Element].self, from: data)
-        else {
-            return nil
-        }
-        self = result
-    }
-
-    public var rawValue: String {
-        guard let data = try? JSONEncoder().encode(self),
-              let result = String(data: data, encoding: .utf8)
-        else {
-            return "[]"
-        }
-        return result
     }
 }

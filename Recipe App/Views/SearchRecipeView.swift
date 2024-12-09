@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SearchRecipeView: View {
     @EnvironmentObject var recipeService: RecipeService
-
     @State private var searchText: String = "" // Store user search input
 
     var body: some View {
@@ -27,15 +26,7 @@ struct SearchRecipeView: View {
                         .font(Font.custom("DeliusSwashCaps-Regular", size: 30))
                         .foregroundColor(Color("Text"))
                     Spacer()
-//                    Image(systemName: "person.crop.circle")
-//                        .padding(.trailing, 20.0)
-//                        .foregroundColor(Color("Text"))
-//                        .imageScale(.large)
                 }
-
-
-                Spacer()
-                Spacer()
 
                 HStack {
                     Image(systemName: "magnifyingglass")
@@ -47,7 +38,7 @@ struct SearchRecipeView: View {
                         }
                     })
                         .foregroundColor(Color("Text"))
-                        .textFieldStyle(PlainTextFieldStyle())
+                        //.textFieldStyle(PlainTextFieldStyle())
                     Spacer()
                 }
                 .padding(.top)
@@ -62,17 +53,27 @@ struct SearchRecipeView: View {
 
                 Divider()
 
-                Spacer()
-
                 ScrollView {
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
-                        ForEach(recipeService.recipes) { recipe in
-                            NavigationLink(destination: RecipeDetailsView(recipe : recipe)){
-                                RecipeCardView(recipe: recipe)
+                    if !recipeService.recipes.isEmpty {
+                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
+                            ForEach(recipeService.recipes) { recipe in
+                                NavigationLink(destination: RecipeDetailsView(recipe : recipe)){
+                                    RecipeCardView(recipe: recipe)
+                                }
                             }
                         }
+                        .padding()
+                    } else {
+                        VStack {
+                            Spacer()
+                            Text("No results")
+                                .foregroundColor(Color("Text"))
+                                .font(Font.custom("DeliusSwashCaps-Regular", size: 18))
+                                .padding(.top, 40.0)
+                            Spacer()
+                        }
+                        .frame(maxHeight: .infinity)
                     }
-                    .padding()
                 }
             }
         }

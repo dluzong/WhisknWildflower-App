@@ -26,10 +26,6 @@ struct CookbookView: View {
                         .font(Font.custom("DeliusSwashCaps-Regular", size: 30))
                         .foregroundColor(Color("Text"))
                     Spacer()
-//                    Image(systemName: "person.crop.circle")
-//                        .padding(.trailing, 20.0)
-//                        .foregroundColor(Color("Text"))
-//                        .imageScale(.large)
                 }
 
                 Text("Favorites...")

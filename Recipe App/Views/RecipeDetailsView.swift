@@ -8,15 +8,14 @@
 import SwiftUI
 
 struct RecipeDetailsView: View {
-    let recipe: RecipeObject
-    //@State private var recipeDetails: RecipeObject? //model to hold recipe details
+    @State var recipe: RecipeObject
     @EnvironmentObject var recipeService: RecipeService
 
     var body: some View {
         ZStack {
             Color("BackgroundColor")
                 .ignoresSafeArea()
-           // if let details = recipeDetails {
+
                 ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
                         AsyncImage(url: URL(string: recipe.image?.isEmpty == false ? recipe.image! : "https://via.placeholder.com/150")) { image in image
@@ -90,6 +89,11 @@ struct RecipeDetailsView: View {
 //                        }
 //                    }
 //            }
+        }
+        .onAppear {
+            recipeService.fetchRecipeDetails(recipeID: recipe.id) { updatedRecipe in if let updatedRecipe = updatedRecipe {
+                self.recipe = updatedRecipe
+            }}
         }
         .navigationTitle("Recipe Details")
         .navigationBarTitleDisplayMode(.inline)

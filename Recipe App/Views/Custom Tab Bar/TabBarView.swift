@@ -15,23 +15,21 @@ struct TabBarView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             Group{
-//                HomeView()
-//                    .tabItem {
-//                        Label("Home", systemImage: "house")
-//                    }
-//                    .tag(0)
                 SearchRecipeView()
                     .environmentObject(recipeService)
                     .tabItem {
                         Label("Find Recipes", systemImage: "text.page.badge.magnifyingglass")
                     }
                     .tag(1)
+                    .transition(.opacity)
+
                 CookbookView()
                     .environmentObject(recipeService)
                     .tabItem {
                         Label("My Cookbook", systemImage: "book")
                     }
                     .tag(2)
+                    .transition(.opacity)
             }
         }
         .onAppear() {
@@ -45,6 +43,7 @@ struct TabBarView: View {
                 UITabBar.appearance().tintColor = backgroundColor // Color for selected items
             }
         }
+        .animation(.easeInOut(duration: 0.3), value: selectedTab)
     }
 }
 
