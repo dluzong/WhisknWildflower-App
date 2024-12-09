@@ -10,6 +10,7 @@ import SwiftUI
 struct TabBarView: View {
 
     @State private var selectedTab: Int = 1
+    @StateObject private var recipeService = RecipeService()
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -20,13 +21,13 @@ struct TabBarView: View {
 //                    }
 //                    .tag(0)
                 SearchRecipeView()
-                    .environmentObject(RecipeService())
+                    .environmentObject(recipeService)
                     .tabItem {
                         Label("Find Recipes", systemImage: "text.page.badge.magnifyingglass")
                     }
                     .tag(1)
                 CookbookView()
-                    .environmentObject(RecipeService())
+                    .environmentObject(recipeService)
                     .tabItem {
                         Label("My Cookbook", systemImage: "book")
                     }

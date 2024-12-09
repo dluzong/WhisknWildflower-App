@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CookbookView: View {
     @EnvironmentObject var recipeService: RecipeService
-    //@State private var favoriteRecipes: [RecipeObject] = []
 
     var body: some View {
         ZStack {
@@ -27,10 +26,10 @@ struct CookbookView: View {
                         .font(Font.custom("DeliusSwashCaps-Regular", size: 30))
                         .foregroundColor(Color("Text"))
                     Spacer()
-                    Image(systemName: "person.crop.circle")
-                        .padding(.trailing, 20.0)
-                        .foregroundColor(Color("Text"))
-                        .imageScale(.large)
+//                    Image(systemName: "person.crop.circle")
+//                        .padding(.trailing, 20.0)
+//                        .foregroundColor(Color("Text"))
+//                        .imageScale(.large)
                 }
 
                 Text("Favorites...")
@@ -40,41 +39,13 @@ struct CookbookView: View {
                     .font(Font.custom("DeliusSwashCaps-Regular", size: 20))
                     .foregroundColor(Color("Text"))
                 Divider()
-                if (!recipeService.favoriteRecipes.isEmpty){
+                if (!recipeService.favorites.isEmpty){
                     ScrollView {
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
-                            ForEach(recipeService.favoriteRecipes) { recipe in
-                                ZStack {
-                                    Rectangle()
-                                        .fill(Color("Card")) // Replace with actual color
-                                        .frame(height: 150)
-                                        .cornerRadius(10)
-                                        .overlay(
-                                            VStack {
-                                                AsyncImage(url: URL(string: recipe.image)) { image in image
-                                                        .resizable()
-                                                        .scaledToFit()
-                                                        .frame(height: 100)
-                                                        .cornerRadius(10)
-                                                } placeholder: {
-                                                    ProgressView()
-                                                }
-    //                                            Image(systemName: "heart.fill")
-    //                                                .foregroundColor(Color("HeartColor"))
-    //                                                .padding(10)
-    //                                                .cornerRadius(10)
-    //                                                .padding([.bottom, .trailing], 8)
-    //                                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-                                                Text(recipe.title)
-                                                    .foregroundColor(Color("Text"))
-                                                    .font(Font.custom("DeliusSwashCaps-Regular", size: 14))
-                                                    .multilineTextAlignment(.center)
-                                                    .lineLimit(2)
-                                                    .padding(.horizontal, 8)
-                                            }
-                                        )
+                            ForEach(recipeService.favorites) { recipe in
+                                NavigationLink(destination: RecipeDetailsView(recipe : recipe)){
+                                    RecipeCardView(recipe: recipe)
                                 }
-
                             }
                         }
                         .padding()
@@ -87,17 +58,6 @@ struct CookbookView: View {
                     Spacer()
                     Spacer()
                 }
-
-
-//                NavigationLink(destination: SearchRecipeView()) {
-//                    Text("Find more Recipes")
-//                        .padding()
-//                        .background(Color("ChocoBrown"))
-//                        .foregroundColor( Color("BackgroundColor"))
-//                        .cornerRadius(45)
-//                        .font(Font.custom("DeliusSwashCaps-Regular", size: 18))
-//                }
-
             }
         }
         .navigationBarHidden(true)

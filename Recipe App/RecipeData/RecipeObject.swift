@@ -18,5 +18,28 @@ struct SearchRecipeResponse: Codable {
 struct RecipeObject: Identifiable, Codable {
     let id: Int
     let title: String
-    let image: String
+    let image: String?
+//    let readyInMinutes: Int?
+//    let servings: Int?
+    let extendedIngredients: [Ingredient]?
+    let instructions: String?
+    let analyzedInstructions: [AnalyzedInstruction]?
+}
+
+struct Ingredient: Codable {
+    let id: Int
+    let name: String
+    let original: String
+    let amount: Double
+    let unit: String
+}
+
+struct AnalyzedInstruction: Codable {
+    let name: String
+    let steps: [Step]
+}
+
+struct Step: Codable {
+    let number: Int
+    let step: String
 }

@@ -37,15 +37,6 @@ struct HomeView: View {
                                 .font(Font.custom("DeliusSwashCaps-Regular", size: 30))
                         }
                         .padding(.top, 40.0)
-//                        Spacer()
-//                        NavigationLink(destination: CookbookView()) {
-//                            Text("My Cookbook")
-//                                .padding()
-//                                .background(Color("Brown"))
-//                                .foregroundColor( Color("BackgroundColor"))
-//                                .cornerRadius(45)
-//                                .font(Font.custom("DeliusSwashCaps-Regular", size: 18))
-//                        }
 
                         Spacer()
                     }

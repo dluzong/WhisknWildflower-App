@@ -27,10 +27,10 @@ struct SearchRecipeView: View {
                         .font(Font.custom("DeliusSwashCaps-Regular", size: 30))
                         .foregroundColor(Color("Text"))
                     Spacer()
-                    Image(systemName: "person.crop.circle")
-                        .padding(.trailing, 20.0)
-                        .foregroundColor(Color("Text"))
-                        .imageScale(.large)
+//                    Image(systemName: "person.crop.circle")
+//                        .padding(.trailing, 20.0)
+//                        .foregroundColor(Color("Text"))
+//                        .imageScale(.large)
                 }
 
 
@@ -67,46 +67,8 @@ struct SearchRecipeView: View {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
                         ForEach(recipeService.recipes) { recipe in
-                            ZStack {
-                                Rectangle()
-                                    .fill(Color("Card"))
-                                    .frame(height: 150)
-                                    .cornerRadius(10)
-                                    .overlay(
-                                        VStack {
-                                            AsyncImage(url: URL(string: recipe.image)) { image in
-                                                image
-                                                    .resizable()
-                                                    .scaledToFit()
-                                                    .frame(height: 100)
-                                                    .cornerRadius(10)
-                                            } placeholder: {
-                                                ProgressView()
-                                            }
-                                            HStack {
-                                                Text(recipe.title)
-                                                    .foregroundColor(Color("Text"))
-                                                    .font(Font.custom("DeliusSwashCaps-Regular", size: 16))
-                                                    .multilineTextAlignment(.center)
-                                                    .lineLimit(2)
-                                                    .minimumScaleFactor(0.7)
-                                                    .padding(.horizontal, 8)
-                                                Spacer()
-//                                                Image(systemName: recipeService.favoriteRecipes.contains(where: {$0.id == recipe.id}) ? "heart.fill" : "heart")
-//                                                    .foregroundColor(Color("Text"))
-//                                                    .onTapGesture {
-//                                                        if recipeService.favoriteRecipes.contains(where: {$0.id == recipe.id}) {
-//                                                            recipeService.removeFromFavorites(recipe: recipe)
-//                                                        } else {
-//                                                            recipeService.addToFavorites(recipe: recipe)
-//                                                        }
-//                                                    }
-//                                                    .padding(10)
-//                                                    .cornerRadius(10)
-//                                                    .padding([.bottom, .trailing], 8)
-                                            }
-                                        }
-                                    )
+                            NavigationLink(destination: RecipeDetailsView(recipe : recipe)){
+                                RecipeCardView(recipe: recipe)
                             }
                         }
                     }
@@ -124,6 +86,8 @@ struct SearchRecipeView: View {
 }
 
 #Preview {
-    SearchRecipeView()
-        .environmentObject(RecipeService())
+    NavigationView {
+        SearchRecipeView()
+            .environmentObject(RecipeService())
+    }
 }
